@@ -1,3 +1,4 @@
+
 import numpy as np
 from check import Check as Control
 
@@ -11,9 +12,9 @@ class Player():
         self.bank = self.bank - diff - value
         return value
     
-    def Check(self, diff):
+    def Call(self, diff):
         self.bank = self.bank - diff
-        return "Check"
+        return "Call"
     
     def Fold(self):
         return "Fold"
@@ -26,4 +27,9 @@ class Player():
 
         rank = control.Total(Announce=False)
 
-        return self.Check(diff)
+        if diff > 0:
+            answer = self.Fold()
+        else:
+            answer = self.Call(diff)
+
+        return answer

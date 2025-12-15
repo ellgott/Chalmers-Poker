@@ -1,4 +1,3 @@
-
 import numpy as np
 from check import Check as Control
 
@@ -12,14 +11,14 @@ class Player():
         self.bank = self.bank - diff - value
         return value
     
-    def Check(self, diff):
+    def Call(self, diff):
         self.bank = self.bank - diff
-        return "Check"
+        return "Call"
     
     def Fold(self):
         return "Fold"
 
-    def MyTurn(self, num_of_players, actions, diff, hand, table=0):
+    def MyTurn(self, num_of_players, actions, diff, hand, table=0): # These are the variables (actions are raises, checks, and folds)
 
         me = {'player_1': hand}
 
@@ -27,9 +26,4 @@ class Player():
 
         rank = control.Total(Announce=False)
 
-        if diff > 0:
-            answer = self.Fold()
-        else:
-            answer = self.Check(diff)
-
-        return answer
+        return self.Call(diff) # Return "Fold", "Call" or value ("Raise") and then raise is what you add on top of the Call

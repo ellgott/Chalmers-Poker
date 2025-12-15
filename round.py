@@ -20,17 +20,16 @@ class Game():
         self.player_classes = {} # Gather classes of players from modules in dictionary
 
         for filename in os.listdir(PLAYERS):
-            if "player" in filename:
-                module_name = filename[:-3] # Name of file (-.py)
+            module_name = filename[:-3] # Name of file (-.py)
 
-                file_path = os.path.join(PLAYERS, filename)
+            file_path = os.path.join(PLAYERS, filename)
 
-                spec = importlib.util.spec_from_file_location(module_name, file_path)
-                module = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(module)
-
-                PlayerClass = module.Player
-                self.player_classes[module_name] = PlayerClass()
+            spec = importlib.util.spec_from_file_location(module_name, file_path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            
+            PlayerClass = module.Player
+            self.player_classes[module_name] = PlayerClass()
 
 
         self.num_of_players = len(self.player_classes.keys()) # How many players participate?
@@ -114,11 +113,11 @@ class Game():
                     if player in self.relevant_players:
                         self.relevant_players.remove(player)
 
-                if move == "Check":
+                if move == "Call":
                     self.actions[player].append(diff)
                     self.player_bank[player] = bank - diff
                     self.pot += diff
-                    print(f"{player} checks.")
+                    print(f"{player} calls.")
 
                 if isinstance(move, float):
                     self.actions[player].append(diff+move)
