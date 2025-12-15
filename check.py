@@ -325,9 +325,9 @@ class Check():
         return players_ranks
 
 
-    def Winner(self, players_ranks):
+    def Winner(self, Announce=True):
 
-        players_ranks = self.Total(Announce=True)
+        players_ranks = self.Total(Announce=Announce)
         possible_hands = players_ranks.shape[1]
         num_of_players = players_ranks.shape[0]
 

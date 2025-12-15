@@ -19,7 +19,7 @@ print(players)
 print("River")
 print(river)
 
-check = Check(players, river)
+check_river = Check(players, river)
 
-check.Winner(check.Total())
+check_river.Winner(Announce=True)
 
