@@ -7,3 +7,5 @@ check.py contains the class Check() made for interpretting the result of the gam
 - returns winner indexes as an array of size one (winner) or larger (split pot)
 - prints results as it checks but this can be manuevered
 - bugs might be found... but I don't think so
+
+Check.Winner() returns scalar or array with the index of the player who has won

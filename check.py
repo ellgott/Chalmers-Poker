@@ -3,7 +3,7 @@ from deck import *
 
 class Check():
 
-    def __init__(self, players, table):
+    def __init__(self, players, table=0):
         self.colors = ['S', 'H', 'D', 'C']
         self.values = np.arange(2,15)
         self.deck = {k: self.values.copy() for k in self.colors}
