@@ -347,15 +347,15 @@ class Check():
             indexes = [i for i, val in enumerate(column) if val == highest]
 
             if len(indexes) == 1:
-                print(f'The winner is player {relevant_players[indexes][0][0]:.0f} due to {self.rank[-(i+1)]}!')
-                return relevant_players[indexes][0][0]
+                #print(f'The winner is player {relevant_players[indexes][0][0]:.0f} due to {self.rank[-(i+1)]}!')
+                return indexes, self.rank[-(i+1)]
 
             else:
                 relevant_players = relevant_players[indexes, :]
 
                 if i in (0,3,4):
-                    print(f'Split pot between players {indexes+np.ones(len(indexes))} due to {self.rank[-(i+1)]}') 
-                    return indexes+np.ones(len(indexes))
+                    #print(f'Split pot between players due to {self.rank[-(i+1)]}') 
+                    return indexes, self.rank[-(i+1)]
 
             if i == possible_hands-5: # We've reached card value comparison
 
@@ -377,14 +377,14 @@ class Check():
                             break
 
             if i == possible_hands - 6 + hc:
-                print(f'Split pot between players {indexes+np.ones(len(indexes))} due to {self.rank[-(i+1)]}')
-                return indexes+np.ones(len(indexes))
+                #print(f'Split pot between players due to {self.rank[-(i+1)]}')
+                return indexes, self.rank[-(i+1)]
                 break
             
             if i == possible_hands-1:
                 print(hc)
-                print(f'Split pot between players {indexes+np.ones(len(indexes))} due to {self.rank[-(i+1)]}')
-                return indexes+np.ones(len(indexes))
+                #print(f'Split pot between players due to {self.rank[-(i+1)]}')
+                return indexes, self.rank[-(i+1)]
                 break
 
 

@@ -60,12 +60,12 @@ class Deck():
         flop = self.Draw(3) 
         return flop
     
-    def River(self, table):
+    def Turn(self, table):
         table = table.copy()
         table.extend(self.Draw(1))
         return table
     
-    def Turn(self, table):
+    def River(self, table):
         table = table.copy()
         table.extend(self.Draw(1))
         return table

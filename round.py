@@ -130,7 +130,10 @@ class Game():
             p += 1
 
 
-    def FirstRound(self):
+    def PreFlop(self):
+
+        print("PreFlop!")
+        print(f"Order of players: {self.order_of_players}")
 
         self._deck = Deck()
         self._hands = self._deck.PreFlop(self.num_of_players)
@@ -158,25 +161,96 @@ class Game():
     def FlopRound(self):
 
         if len(self.relevant_players) < 2:
-            return(str(self.relevant_players[0]) + " has already won.")
+            return(str(self.relevant_players[0]) + " has won.")
 
         self.table = self._deck.Flop() # Flop on the table
+
+        print("Flop!")
+        print(self.table)
 
         self.Round()
 
         if len(self.relevant_players) == 1: 
             bank = self.player_bank[self.relevant_players[0]]
-            self.player_bank[self.relevant_players[0]] = bank + 1
+            self.player_bank[self.relevant_players[0]] += self.pot
             print(str(self.relevant_players[0]) + " wins due to the others folding.")
+            return self.relevant_players[0]
 
+    def TurnRound(self):
+        if len(self.relevant_players) < 2:
+            return(str(self.relevant_players[0]) + " has won.")
+
+        self.table = self._deck.Turn(self.table) # Flop on the table
+
+        print("Turn!")
+        print(self.table)
+
+        self.Round()
+
+        if len(self.relevant_players) == 1: 
+            bank = self.player_bank[self.relevant_players[0]]
+            self.player_bank[self.relevant_players[0]] += self.pot
+            print(str(self.relevant_players[0]) + " wins due to the others folding.")
+            return self.relevant_players[0]
+
+
+    def RiverRound(self):
+        if len(self.relevant_players) < 2:
+            return(str(self.relevant_players[0]) + " has won.")
+
+        self.table = self._deck.River(self.table) # Flop on the table
+
+        print("River!")
+        print(self.table)
+
+        self.Round()
+
+        if len(self.relevant_players) == 1: 
+            self.player_bank[self.relevant_players[0]] += self.pot
+            print(str(self.relevant_players[0]) + " wins due to the others folding.")
+            return self.relevant_players[0]
         
-game = Game()
-print(game.order_of_players)
-game.FirstRound()
-game.FlopRound()
-game.CheckingIn()
-print("Bank:")
-print(game.player_bank)
+        else:
+            hands = self._hands.copy()
+
+            for player, hand in zip(self.order_of_players, self._hands.keys()):
+                if player not in self.relevant_players:
+                    del hands[hand]
+
+            print(f"Hands: {hands}")
+
+            check = Check(hands, self.table)
+            winner_index, rank = check.Winner(Announce=True)
+
+            if len(winner_index) == 1:
+                winner = self.order_of_players[winner_index[0]]
+                self.player_bank[winner] += self.pot
+                print(f"The winner is {winner} due to {rank}!")
+
+            else:
+                winners = []
+                for index in winner_index:
+                    winners.append(self.order_of_players[index])
+                print(f"The pot is split between {winners} due to {rank}!")
+
+    def NewRound(self):
+
+        self.order_of_players = self.order_of_players[-1:] + self.order_of_players[:-1]
+        print(f"Players' bank:")
+        print(f"{self.player_bank}")
+        print(f"Next Round")
+
+    def CompleteRound(self):
+        self.PreFlop()
+        self.FlopRound()
+        self.TurnRound()
+        self.RiverRound()
+        self.NewRound()
+
+
+
+
+
 
 
 

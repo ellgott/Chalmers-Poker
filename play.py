@@ -1,26 +1,11 @@
 import numpy as np
 from deck import Deck
 from check import Check
+from round import Game
 
-deck = Deck()
+game = Game()
+print("A New Game of Poker!")
+print(f"Players: {game.names_of_players}")
 
-num_of_players = 6
-
-players = deck.PreFlop(num_of_players)
-
-flop = deck.Flop()
-
-turn = deck.Turn(flop)
-
-river = deck.River(turn)
-
-print("PreFlop:")
-print(players)
-print("River")
-print(river)
-
-
-check_river = Check(players, river)
-
-check_river.Winner(Announce=True)
+game.CompleteRound()
 
