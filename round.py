@@ -80,6 +80,7 @@ class Game():
                 self.player_bank[player] = bank - blind
                 self.pot += blind
                 print(f"{player} has the small blind.")
+
             if p == 1 and first_round==True: # Second player to the left gets big
                 blind = self.big_blind
                 self.actions[player] = [blind]
@@ -100,7 +101,7 @@ class Game():
                 bet = sum(self.actions[max_player])
                 diff = bet - sum(self.actions[player])
 
-                if diff == 0 and p > self.num_of_players: # If the checking has gone a full circle
+                if diff == 0 and p > self.num_of_players-1: # If the checking has gone a full circle
 
                     break
                     m +=1
