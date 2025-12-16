@@ -43,7 +43,7 @@ class Check():
                         if player_names == 0:
                             print(f'Player {i+1:.0f} has Two Pairs in {self.value_names[two_pair_value-2]}s and {self.value_names[single_pair_value-2]}s')
                         else:
-                            print(f'{player[i]} has Two Pairs in {self.value_names[two_pair_value-2]}s and {self.value_names[single_pair_value-2]}s')
+                            print(f'{player_names[i]} has Two Pairs in {self.value_names[two_pair_value-2]}s and {self.value_names[single_pair_value-2]}s')
                 else:
                     pair_value = np.max(duplicates)
                     rank_list[5] = pair_value # add pair
