@@ -229,7 +229,9 @@ class Game():
             else:
                 winners = []
                 for index in winner_index:
-                    winners.append(self.order_of_players[index])
+                    player = self.order_of_players[index]
+                    winners.append(player)
+                    self.player_bank[player] += self.pot/len(winner_index)
                 print(f"The pot is split between {winners} due to {rank}!")
 
     def NewRound(self):
