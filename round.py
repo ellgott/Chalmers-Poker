@@ -42,6 +42,8 @@ class Game():
             self.player_bank[key] = buyin # Define the buy-in
 
 
+
+
     def CheckingIn(self): # Peaking at the hands
         check = Check(self._hands, self.table)
         check.Total(Announce=True)
@@ -57,6 +59,7 @@ class Game():
             i = p % (self.num_of_players) # Iterating between 0 and num_of_players, i enumerates
             player = self.order_of_players[i] # Choosing the correct player
 
+
             if self.actions[player] == []:
                 first_round = True
             else:
@@ -64,28 +67,27 @@ class Game():
 
             if "Fold" in self.actions[player]:
                 #print("One too many loops")
+                p += 1
                 continue
 
             bank = self.player_bank[player]
             hand = self.players_hands[player]
 
-            if first_round == True:
 
-                if p == 0: # If nothing happened before, first round
-                    blind = self.small_blind
-                    self.actions[player] = [blind]
-                    self.player_bank[player] = bank - blind
-                    self.pot += blind
-                    print(f"{player} has the small blind.")
+            if p == 0 and first_round==True: # If nothing happened before, first round
+                blind = self.small_blind
+                self.actions[player] = [blind]
+                self.player_bank[player] = bank - blind
+                self.pot += blind
+                print(f"{player} has the small blind.")
+            if p == 1 and first_round==True: # Second player to the left gets big
+                blind = self.big_blind
+                self.actions[player] = [blind]
+                self.player_bank[player] = bank - blind
+                self.pot += blind
+                print(f"{player} has the big blind.")
 
-                if p == 1: # Second player to the left gets big
-                    blind = self.big_blind
-                    self.actions[player] = [blind]
-                    self.player_bank[player] = bank - blind
-                    self.pot += blind
-                    print(f"{player} has the big blind.")
-
-            else:
+            if p > 1 or first_round==False:
 
                 bet = 0
 
@@ -152,6 +154,8 @@ class Game():
 
         self.Round()
 
+        print(f'Pot size: {self.pot}')
+
         if len(self.relevant_players) == 1: 
             self.player_bank[self.relevant_players[0]] += self.pot
             print(str(self.relevant_players[0]) + " wins due to the others folding.")
@@ -169,6 +173,8 @@ class Game():
 
         self.Round()
 
+        print(f'Pot size: {self.pot}')
+
         if len(self.relevant_players) == 1: 
             bank = self.player_bank[self.relevant_players[0]]
             self.player_bank[self.relevant_players[0]] += self.pot
@@ -185,6 +191,8 @@ class Game():
         print(self.table)
 
         self.Round()
+
+        print(f'Pot size: {self.pot}')
 
         if len(self.relevant_players) == 1: 
             bank = self.player_bank[self.relevant_players[0]]
@@ -204,6 +212,8 @@ class Game():
 
         self.Round()
 
+        print(f'Pot size: {self.pot}')
+
         if len(self.relevant_players) == 1: 
             self.player_bank[self.relevant_players[0]] += self.pot
             print(str(self.relevant_players[0]) + " wins due to the others folding.")
@@ -211,15 +221,24 @@ class Game():
         
         else:
             hands = self._hands.copy()
+            names = self.order_of_players.copy()
 
             for player, hand in zip(self.order_of_players, self._hands.keys()):
                 if player not in self.relevant_players:
                     del hands[hand]
+                    names.remove(player)
 
-            print(f"Hands: {hands}")
-
+            key_list = list(hands.keys())
+            
+            for i in range(len(hands)):
+                hands[f'player_{i+1}'] = hands.pop(key_list[i])
+                    
+            print('Showing cards...')
+            for name,hand in zip(names, hands.keys()):
+                print(f"{name} has cards {hands[hand]}!")
+        
             check = Check(hands, self.table)
-            winner_index, rank = check.Winner(Announce=True)
+            winner_index, rank = check.Winner(Announce=True, player_names=names)
 
             if len(winner_index) == 1:
                 winner = self.order_of_players[winner_index[0]]
@@ -261,7 +280,7 @@ class Game():
 
     
         
-
+#Benny/Lisa vinner, fel prioritetsorning
 
 
 # Split pot - om pengarna tar slut

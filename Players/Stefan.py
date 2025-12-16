@@ -1,4 +1,3 @@
-
 import numpy as np
 from check import Check as Control
 
@@ -19,7 +18,7 @@ class Player():
     def Fold(self):
         return "Fold"
 
-    def MyTurn(self, num_of_players, actions, diff, hand, table=0):
+    def MyTurn(self, num_of_players, actions, diff, hand, table=0): # These are the variables (actions are raises, checks, and folds)
 
         me = {'player_1': hand}
 
@@ -27,9 +26,7 @@ class Player():
 
         rank = control.Total(Announce=False)
 
-        if diff > 0:
-            answer = self.Fold()
-        else:
-            answer = self.Call(diff)
+        return self.Call(diff) # Return "Fold", "Call" or value ("Raise") and then raise is what you add on top of the Call
 
-        return self.Fold()
+
+
