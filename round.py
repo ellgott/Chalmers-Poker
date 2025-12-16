@@ -241,7 +241,7 @@ class Game():
             winner_index, rank = check.Winner(Announce=True, player_names=names)
 
             if len(winner_index) == 1:
-                winner = self.order_of_players[winner_index[0]]
+                winner = names[winner_index[0]]
                 self.player_bank[winner] += self.pot
                 print(f"The winner is {winner} due to {rank}!")
 
