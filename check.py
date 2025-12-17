@@ -414,5 +414,7 @@ class Check():
 
 
             
+#players = {'player_1':  [('D', 8), ('D', 6)]}
     
-    
+#check = Check(players, table=[('C', 2), ('H', 6), ('C', 13)])
+#print(check.Total())

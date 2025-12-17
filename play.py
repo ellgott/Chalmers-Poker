@@ -7,7 +7,7 @@ game = Game()
 print("A New Game of Poker!")
 print(f"Players: {game.names_of_players}")
 
+for i in range(100):
+    game.CompleteRound()
 
-game.CompleteRound()
-print(game.actions)
 
