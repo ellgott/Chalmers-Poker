@@ -26,4 +26,5 @@ class Player():
 
         rank = control.Total(Announce=False)
 
-        return self.Call(diff) # Return "Fold", "Call" or value ("Raise") and then raise is what you add on top of the Call
+        return 3 # Return "Fold", "Call" or value ("Raise") and then raise is what you add on top of the Call
+        

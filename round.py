@@ -15,7 +15,7 @@ class Game():
         self.big_blind = big_blind
 
         HOME = os.getcwd()
-        PLAYERS = file_path = os.path.join(HOME, "Players")
+        PLAYERS = os.path.join(HOME, "Players")
 
         self.player_classes = {} # Gather classes of players from modules in dictionary
 
@@ -50,6 +50,8 @@ class Game():
 
 
     def Round(self):
+
+        print("Betting...")
 
         p = 0 # Will decide index of player
         m = 0 # Will break loop
@@ -105,7 +107,7 @@ class Game():
 
                     break
                     m +=1
-                print("Betting...")
+                
                 # Here is where the actual decision making happens
                 move = self.player_classes[player].MyTurn(self.num_of_players, self.actions, diff, hand, self.table)
 
@@ -122,7 +124,7 @@ class Game():
                     self.pot += diff
                     print(f"{player} calls.")
 
-                if isinstance(move, float):
+                if move != "Call" and move != "Fold":
                     self.actions[player].append(diff+move)
                     self.player_bank[player] = bank - diff - move
                     self.pot += diff + move
@@ -165,7 +167,7 @@ class Game():
     def FlopRound(self):
 
         if len(self.relevant_players) < 2:
-            return(str(self.relevant_players[0]) + " has won.")
+            return #there aren't enought players to play - one has already won
 
         self.table = self._deck.Flop() # Flop on the table
 
@@ -183,8 +185,9 @@ class Game():
             return self.relevant_players[0]
 
     def TurnRound(self):
+
         if len(self.relevant_players) < 2:
-            return(str(self.relevant_players[0]) + " has won.")
+            return #there aren't enought players to play - one has already won
 
         self.table = self._deck.Turn(self.table) # Flop on the table
 
@@ -204,7 +207,7 @@ class Game():
 
     def RiverRound(self):
         if len(self.relevant_players) < 2:
-            return(str(self.relevant_players[0]) + " has won.")
+            return #there aren't enought players to play - one has already won
 
         self.table = self._deck.River(self.table) # Flop on the table
 
@@ -276,18 +279,6 @@ class Game():
 
 
         
-
-
-
-    
-        
-#Benny/Lisa vinner, fel prioritetsorning
-
-
-# Split pot - om pengarna tar slut
-# har ännu ej nått river
-# Inget lägsta värde för banken
-
 
 
         

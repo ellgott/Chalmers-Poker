@@ -9,5 +9,5 @@ print(f"Players: {game.names_of_players}")
 
 
 game.CompleteRound()
-
+print(game.actions)
 
