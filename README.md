@@ -20,7 +20,7 @@ deck.py contains the deck class. It can be drawn from and reshuffled and used fo
 
 check.py contains the class Check() made for interpretting the result of the game according to the rules of Texas Hold'Em
 Check.Total() returns a matrix and or announces hands
-- This can be used for interpreting hands and hand values!
+- This can be used for interpreting hands and hand values! Check.Total() returns an array (in an array sadly so Check.Total()[0] is the array) with information about the cards you have on your hands 
 - Check.Winner() returns winner indexes as an array of size one (winner) or larger (split pot)
 - prints results as it checks but this can be manuevered
 - bugs might be found... but it works well
