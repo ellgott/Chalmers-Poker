@@ -18,7 +18,7 @@ class Player():
     def Fold(self):
         return "Fold"
 
-    def MyTurn(self, num_of_players, actions, diff, hand, table=0): # These are the variables (actions are raises, calls, and folds)
+    def MyTurn(self, num_of_players, actions, diff, hand, table=0): # These are the variables (actions are raises, calls, and folds).
 
         self._diff = diff
         me = {'player_1': hand}
